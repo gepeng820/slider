@@ -1,4 +1,5 @@
 let path=require('path');
+let HtmlWebpackPlugin=require('html-webpack-plugin');
 module.exports = {
     entry:'./app/index.js',
     output: {
@@ -11,7 +12,22 @@ module.exports = {
                 test:/^.jsx$/,
                 use:'babel-loader',
                 exclude:/node_modules/
+            },
+            {
+                test:/\.less/,
+                use:["style-loader","css-loader","less-loader"]
+            },
+            {
+                test:/\.(git|png|jpg)/,
+                use:'url-loader?limit=8192'
             }
         ]
-    }
+    },
+
+    plugins: [
+        new HtmlWebpackPlugin({
+            template:'./app/index.html'
+        })
+    ]
+
 };
